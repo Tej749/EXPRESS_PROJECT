@@ -18,9 +18,9 @@ app.get("/blog", (req, res) => {
 });
 
 app.post("/blog", upload.single("image"), async (req, res) => {
-  console.log(req.body);
   const { game, player, add, image } = req.body;
-  if (!game || !player || !add || !image) {
+  const filename = req.file.filename;
+  if (!game || !player || !add) {
     return res.status(400).json({
       msg: "Please provide all data...",
     });
@@ -29,7 +29,7 @@ app.post("/blog", upload.single("image"), async (req, res) => {
     game: game,
     player: player,
     add: add,
-    image: image,
+    image: filename,
   });
 
   res.send("Blog API Hit successfully");
