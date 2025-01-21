@@ -13,12 +13,16 @@ app.get("/", (req, res) => {
   res.send("Welcome to Express Project...");
 });
 
-app.get("/blog", (req, res) => {
-  res.send("Welcome to blog page..");
+app.get("/blog", async (req, res) => {
+  const blogs = await Blog.find(); // return array and do not give same variable names i.e blog = Blog
+  res.status(200).json({
+    msg: "Welcome to Blog page...",
+    data: blog,
+  });
 });
 
 app.post("/blog", upload.single("image"), async (req, res) => {
-  const { game, player, add, image } = req.body;
+  const { game, player, add } = req.body;
   const filename = req.file.filename;
   if (!game || !player || !add) {
     return res.status(400).json({
@@ -35,6 +39,7 @@ app.post("/blog", upload.single("image"), async (req, res) => {
   res.send("Blog API Hit successfully");
 });
 
+app.use(express.static("./storage")); // give permission to acces storage data
 app.listen(process.env.PORT, () => {
   console.log("Your Project has been started....");
 });
