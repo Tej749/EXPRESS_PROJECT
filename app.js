@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/blog", async (req, res) => {
-  const blogs = await Blog.find(); // return array and do not give same variable names i.e blog = Blog
+  const blog = await Blog.find(); // return array and do not give same variable names i.e blog = Blog
   res.status(200).json({
     msg: "Welcome to Blog page...",
     data: blog,
@@ -39,12 +39,28 @@ app.post("/blog", upload.single("image"), async (req, res) => {
   res.send("Blog API Hit successfully");
 });
 
-app.get("/blog/:id", (req, res) => {
+app.get("/blog/:id", async (req, res) => {
   const id = req.params.id;
-  const blog = Blog.findById(id);
- if (!blog){
-  
- }
+  const blog = await Blog.findById(id);
+
+  if (!blog) {
+    return res.status(400).json({
+      // object
+      msg: "no data found",
+    });
+  }
+  res.status(200).json({
+    msg: "Fetched data successfully..",
+    data: blog,
+  });
+});
+
+app.delete("/blog/:id", async (req, res) => {
+  const id = req.params.id;
+  await Blog.findByIdAndDelete(id);
+  res.status(200).json({
+    msg: "Blog delete successfully...",
+  });
 });
 
 app.use(express.static("./storage")); // give permission to acces storage data
