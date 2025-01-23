@@ -39,7 +39,16 @@ app.post("/blog", upload.single("image"), async (req, res) => {
   res.send("Blog API Hit successfully");
 });
 
+app.get("/blog/:id", (req, res) => {
+  const id = req.params.id;
+  const blog = Blog.findById(id);
+ if (!blog){
+  
+ }
+});
+
 app.use(express.static("./storage")); // give permission to acces storage data
+
 app.listen(process.env.PORT, () => {
   console.log("Your Project has been started....");
 });
