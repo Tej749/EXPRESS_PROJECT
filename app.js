@@ -6,8 +6,16 @@ const { storage, multer } = require("./middleware/multerConfig");
 const upload = multer({ storage: storage });
 const fs = require("fs");
 const app = express();
+const cors = require("cors");
 
 app.use(express.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+
 connectDatabase();
 
 app.get("/", (req, res) => {
@@ -82,7 +90,7 @@ app.patch("/blog/:id", upload.single("image"), async (req, res) => {
     imageName = req.file.filename;
     const blog = await Blog.findById(id);
     const oldImage = blog.image;
- 
+
     fs.unlink(`storage/${oldImage}`, (err) => {
       if (err) {
         console.log(err);
