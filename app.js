@@ -32,7 +32,15 @@ app.get("/blog", async (req, res) => {
 
 app.post("/blog", upload.single("image"), async (req, res) => {
   const { game, player, add } = req.body;
-  const filename = req.file.filename;
+  // const filename = req.file.filename;
+  let filename;
+  if (req.file) {
+    filename = "http://localhost:3000/" + req.file.filename;
+  } else {
+    filename =
+      "https://www.tnwcreations.com/mt-content/uploads/2021/05/constant-contact-links1.png";
+  }
+
   if (!game || !player || !add) {
     return res.status(400).json({
       msg: "Please provide all data...",
@@ -87,7 +95,7 @@ app.patch("/blog/:id", upload.single("image"), async (req, res) => {
   const { game, player, add } = req.body;
   let imageName;
   if (req.file) {
-    imageName = req.file.filename;
+    imageName = "http://localhost:3000/" + req.file.filename;
     const blog = await Blog.findById(id);
     const oldImage = blog.image;
 
