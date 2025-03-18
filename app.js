@@ -35,7 +35,7 @@ app.post("/blog", upload.single("image"), async (req, res) => {
   // const filename = req.file.filename;
   let filename;
   if (req.file) {
-    filename = "http://localhost:3000/" + req.file.filename;
+    filename = "https://express-project-1fmh.onrender.com/" + req.file.filename;
   } else {
     filename =
       "https://www.tnwcreations.com/mt-content/uploads/2021/05/constant-contact-links1.png";
@@ -95,7 +95,7 @@ app.patch("/blog/:id", upload.single("image"), async (req, res) => {
   const { game, player, add } = req.body;
   let imageName;
   if (req.file) {
-    imageName = "http://localhost:3000/" + req.file.filename;
+    imageName = "https://express-project-1fmh.onrender.com/" + req.file.filename;
     const blog = await Blog.findById(id);
     const oldImage = blog.image;
 
