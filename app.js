@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:5174", "https://react-fin-project-37jepr2kj-tejs-projects-a320d28d.vercel.app"]
+    origin: ["http://localhost:5174", "https://react-fin-project.vercel.app"],
   })
 );
 
