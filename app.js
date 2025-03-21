@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: ["http://localhost:5174", "https://react-fin-project.vercel.app", "https://tezn749.xyz" ],
+    origin: ["http://localhost:5174", "https://react-fin-project.vercel.app"],
   })
 );
 
@@ -95,7 +95,8 @@ app.patch("/blog/:id", upload.single("image"), async (req, res) => {
   const { game, player, add } = req.body;
   let imageName;
   if (req.file) {
-    imageName = "https://express-project-1fmh.onrender.com/" + req.file.filename;
+    imageName =
+      "https://express-project-1fmh.onrender.com/" + req.file.filename;
     const blog = await Blog.findById(id);
     const oldImage = blog.image;
 
